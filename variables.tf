@@ -47,6 +47,17 @@ variable "security_tooling_email_id" {
   description = "The email ID for the Security Tooling (Audit) AWS Organization account"
 }
 
+variable "aft_mgmt_account_name" {
+  type        = string
+  description = "The name of the AFT Management account"
+  default     = "AFT Management"
+}
+
+variable "aft_mgmt_email_id" {
+  type        = string
+  description = "The email ID for the AFT Management account"
+}
+
 variable "org_aws_service_access_principals" {
   description = "List of AWS service principal names for which you want to enable integration with your organization"
   type        = list(string)

@@ -11,3 +11,10 @@ resource "aws_organizations_account" "security_tooling" {
   email      = var.security_tooling_email_id
   tags       = var.tags
 }
+
+resource "aws_organizations_account" "aft_mgmt" {
+  depends_on = [aws_organizations_organization.mgmt]
+  name       = var.aft_mgmt_account_name
+  email      = var.aft_mgmt_email_id
+  tags       = var.tags
+}

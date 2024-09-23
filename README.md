@@ -58,6 +58,7 @@ module "control_tower" {
 | [aws_kms_alias.ct_kms_key_alias](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.ct_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_kms_key_policy.ct_kms_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key_policy) | resource |
+| [aws_organizations_account.aft_mgmt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
 | [aws_organizations_account.log_archive](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
 | [aws_organizations_account.security_tooling](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
 | [aws_organizations_organization.mgmt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organization) | resource |
@@ -67,6 +68,8 @@ module "control_tower" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_aft_mgmt_account_name"></a> [aft\_mgmt\_account\_name](#input\_aft\_mgmt\_account\_name) | The name of the AFT Management account | `string` | `"AFT Management"` | no |
+| <a name="input_aft_mgmt_email_id"></a> [aft\_mgmt\_email\_id](#input\_aft\_mgmt\_email\_id) | The email ID for the AFT Management account | `string` | n/a | yes |
 | <a name="input_ct_access_logging_bucket_retention_days"></a> [ct\_access\_logging\_bucket\_retention\_days](#input\_ct\_access\_logging\_bucket\_retention\_days) | The number of days to retain the access logging bucket | `number` | n/a | yes |
 | <a name="input_ct_access_management_enabled"></a> [ct\_access\_management\_enabled](#input\_ct\_access\_management\_enabled) | Whether to enable access management | `bool` | `false` | no |
 | <a name="input_ct_centralized_logging_enabled"></a> [ct\_centralized\_logging\_enabled](#input\_ct\_centralized\_logging\_enabled) | Whether to enable centralized logging | `bool` | `true` | no |
