@@ -19,9 +19,9 @@ module "control_tower" {
   ct_logging_bucket_retention_days        = "10"
   ct_access_logging_bucket_retention_days = "10"
   management_account_id                   = "11111111111"
-  log_archive_email_id                    = "your-email+log-archive@example.com"
-  security_tooling_email_id               = "your-email+security-tooling@example.com"
-  aft_mgmt_email_id = "your-email+aft-mgmt@example.com""
+  log_archive_account_email_id            = "your-email+log-archive@example.com"
+  audit_account_email_id                  = "your-email+security-tooling@example.com"
+  aft_mgmt_email_id                       = "your-email+aft-mgmt@example.com"
   tags = {
     managedBy = "terraform"
   }
@@ -58,7 +58,6 @@ module "control_tower" {
 | [aws_kms_alias.ct_kms_key_alias](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.ct_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_kms_key_policy.ct_kms_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key_policy) | resource |
-| [aws_organizations_account.aft_mgmt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
 | [aws_organizations_account.log_archive](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
 | [aws_organizations_account.security_tooling](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
 | [aws_organizations_organization.mgmt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organization) | resource |
@@ -68,8 +67,8 @@ module "control_tower" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aft_mgmt_account_name"></a> [aft\_mgmt\_account\_name](#input\_aft\_mgmt\_account\_name) | The name of the AFT Management account | `string` | `"AFT Management"` | no |
-| <a name="input_aft_mgmt_email_id"></a> [aft\_mgmt\_email\_id](#input\_aft\_mgmt\_email\_id) | The email ID for the AFT Management account | `string` | n/a | yes |
+| <a name="input_audit_account_email_id"></a> [audit\_account\_email\_id](#input\_audit\_account\_email\_id) | The email ID for the Security Tooling (Audit) AWS Organization account | `string` | n/a | yes |
+| <a name="input_audit_account_name"></a> [audit\_account\_name](#input\_audit\_account\_name) | The name of the Security Tooling (Audit) AWS Organization account | `string` | `"Audit"` | no |
 | <a name="input_ct_access_logging_bucket_retention_days"></a> [ct\_access\_logging\_bucket\_retention\_days](#input\_ct\_access\_logging\_bucket\_retention\_days) | The number of days to retain the access logging bucket | `number` | n/a | yes |
 | <a name="input_ct_access_management_enabled"></a> [ct\_access\_management\_enabled](#input\_ct\_access\_management\_enabled) | Whether to enable access management | `bool` | `false` | no |
 | <a name="input_ct_centralized_logging_enabled"></a> [ct\_centralized\_logging\_enabled](#input\_ct\_centralized\_logging\_enabled) | Whether to enable centralized logging | `bool` | `true` | no |
@@ -79,14 +78,12 @@ module "control_tower" {
 | <a name="input_ct_organisation_structure"></a> [ct\_organisation\_structure](#input\_ct\_organisation\_structure) | Control Tower organisation structure | `map(map(string))` | <pre>{<br>  "sandbox": {<br>    "name": "Sandbox"<br>  },<br>  "security": {<br>    "name": "Security"<br>  }<br>}</pre> | no |
 | <a name="input_ct_version"></a> [ct\_version](#input\_ct\_version) | Control Tower version | `string` | `"3.3"` | no |
 | <a name="input_kms_alias_names"></a> [kms\_alias\_names](#input\_kms\_alias\_names) | KMS alias to use for Control Tower | `string` | `"alias/controltower"` | no |
+| <a name="input_log_archive_account_email_id"></a> [log\_archive\_account\_email\_id](#input\_log\_archive\_account\_email\_id) | The email ID for the Log Archive AWS Organization account | `string` | n/a | yes |
 | <a name="input_log_archive_account_name"></a> [log\_archive\_account\_name](#input\_log\_archive\_account\_name) | The name of the Log Archive AWS Organization account | `string` | `"Log Archive"` | no |
-| <a name="input_log_archive_email_id"></a> [log\_archive\_email\_id](#input\_log\_archive\_email\_id) | The email ID for the Log Archive AWS Organization account | `string` | n/a | yes |
 | <a name="input_management_account_id"></a> [management\_account\_id](#input\_management\_account\_id) | The ID of the management account in which AWS Control Tower will be set up. | `string` | n/a | yes |
 | <a name="input_org_aws_service_access_principals"></a> [org\_aws\_service\_access\_principals](#input\_org\_aws\_service\_access\_principals) | List of AWS service principal names for which you want to enable integration with your organization | `list(string)` | <pre>[<br>  "cloudtrail.amazonaws.com",<br>  "config.amazonaws.com",<br>  "sso.amazonaws.com",<br>  "controltower.amazonaws.com",<br>  "guardduty.amazonaws.com",<br>  "securityhub.amazonaws.com",<br>  "reporting.trustedadvisor.amazonaws.com",<br>  "account.amazonaws.com",<br>  "servicecatalog.amazonaws.com",<br>  "member.org.stacksets.cloudformation.amazonaws.com"<br>]</pre> | no |
 | <a name="input_org_enabled_policy_type"></a> [org\_enabled\_policy\_type](#input\_org\_enabled\_policy\_type) | List of Organizations policy types to enable in the Organization root | `list(string)` | <pre>[<br>  "SERVICE_CONTROL_POLICY",<br>  "TAG_POLICY",<br>  "AISERVICES_OPT_OUT_POLICY"<br>]</pre> | no |
 | <a name="input_org_feature_set"></a> [org\_feature\_set](#input\_org\_feature\_set) | The feature set for the organization | `string` | `"ALL"` | no |
-| <a name="input_security_tooling_account_name"></a> [security\_tooling\_account\_name](#input\_security\_tooling\_account\_name) | The name of the Security Tooling (Audit) AWS Organization account | `string` | `"Security Tooling"` | no |
-| <a name="input_security_tooling_email_id"></a> [security\_tooling\_email\_id](#input\_security\_tooling\_email\_id) | The email ID for the Security Tooling (Audit) AWS Organization account | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to be applied to the resources | `map(string)` | <pre>{<br>  "environment": "prd",<br>  "managedBy": "terraform"<br>}</pre> | no |
 
 ## Outputs

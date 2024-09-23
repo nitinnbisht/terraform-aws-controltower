@@ -29,22 +29,7 @@ resource "aws_kms_key_policy" "ct_kms_policy" {
           AWS = "arn:aws:iam::${var.management_account_id}:root"
         },
         Action   = "kms:*",
-        Resource = "*"
-      },
-      {
-        Sid    = "Allow use of the key",
-        Effect = "Allow",
-        Principal = {
-          AWS = "arn:aws:iam::${var.management_account_id}:root"
-        },
-        Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey"
-        ],
-        Resource = "*"
+        Resource = "arn:aws:kms:${data.aws_region.current.name}:${var.management_account_id}:key/${aws_kms_key.ct_kms_key.key_id}"
       },
       {
         Sid    = "Allow Config to use KMS for encryption",

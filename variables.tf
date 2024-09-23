@@ -31,31 +31,20 @@ variable "log_archive_account_name" {
   default     = "Log Archive"
 }
 
-variable "log_archive_email_id" {
+variable "log_archive_account_email_id" {
   type        = string
   description = "The email ID for the Log Archive AWS Organization account"
 }
 
-variable "security_tooling_account_name" {
+variable "audit_account_name" {
   type        = string
   description = "The name of the Security Tooling (Audit) AWS Organization account"
-  default     = "Security Tooling"
+  default     = "Audit"
 }
 
-variable "security_tooling_email_id" {
+variable "audit_account_email_id" {
   type        = string
   description = "The email ID for the Security Tooling (Audit) AWS Organization account"
-}
-
-variable "aft_mgmt_account_name" {
-  type        = string
-  description = "The name of the AFT Management account"
-  default     = "AFT Management"
-}
-
-variable "aft_mgmt_email_id" {
-  type        = string
-  description = "The email ID for the AFT Management account"
 }
 
 variable "org_aws_service_access_principals" {
